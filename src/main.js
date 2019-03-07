@@ -41,14 +41,14 @@ const fillFilterBlock = (block) => {
     const filter = createElement(createFilterTemplate(FILTER_NAMES[i]));
     const checkbox = filter.querySelector(`input`);
 
-    fragment.appendChild(filter);
-
     checkbox.addEventListener(`change`, () => {
       while (block.firstChild) {
         block.removeChild(block.firstChild);
       }
-      tripsBlock.appendChild(fillTripSection(getRandomInt(MIN_NUMBER, MAX_TRIPS_NUMBER)));
+      block.appendChild(fillTripSection(getRandomInt(MIN_NUMBER, MAX_TRIPS_NUMBER)));
     });
+
+    fragment.appendChild(filter);
   });
   return fragment;
 };

@@ -2,11 +2,13 @@ import {createElement} from "./utils/create-element.js";
 import {getRandomInt} from "./utils/random-int.js";
 import {createFilterTemplate} from "./template/filter.js";
 import {createTripTemplate} from "./template/trip.js";
+import {generateTripPoint} from "./data.js";
 
 const MIN_NUMBER = 1;
 const NUMBER_OF_TRIPS = 7;
 const MAX_TRIPS_NUMBER = 5;
 const FILTER_NAMES = [`Everything`, `Future`, `Past`];
+const TRIPS_ARRAY = [];
 
 /**
  * Добавляет запланированные события - точки маршрута
@@ -17,7 +19,7 @@ const FILTER_NAMES = [`Everything`, `Future`, `Past`];
 const fillTripSection = (number) => {
   const fragment = document.createDocumentFragment();
   for (let i = 0; i < number; i++) {
-    const trip = createElement(createTripTemplate());
+    const trip = createElement(createTripTemplate(generateTripPoint()));
     fragment.appendChild(trip);
   }
   return fragment;
@@ -57,4 +59,8 @@ const tripFilter = document.querySelector(`.trip-filter`);
 const tripsBlock = document.querySelector(`.trip-day__items`);
 
 tripFilter.appendChild(fillFilterBlock(tripsBlock));
-tripsBlock.appendChild(fillTripSection(NUMBER_OF_TRIPS));
+
+TRIPS_ARRAY.push(fillTripSection(NUMBER_OF_TRIPS));
+for (const item of TRIPS_ARRAY) {
+  tripsBlock.appendChild(item);
+}

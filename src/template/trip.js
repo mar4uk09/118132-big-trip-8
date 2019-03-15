@@ -5,7 +5,7 @@
  * @return {string} Шаблон события
  */
 export const createTripTemplate = (point) => `<article class="trip-point">
-    <i class="trip-icon">${point.icon()}</i>
+    <i class="trip-icon">${point.icon}</i>
     <h3 class="trip-point__title">${point.type} to ${point.city}</h3>
     <p class="trip-point__schedule">
       <span class="trip-point__timetable">${point.timeStart}&nbsp;&mdash; ${point.timeEnd}</span>
@@ -13,7 +13,7 @@ export const createTripTemplate = (point) => `<article class="trip-point">
     </p>
     <p class="trip-point__price">&euro;&nbsp;${point.price}</p>
     <ul class="trip-point__offers">
-    ${[...point.currentOffers].map((offer) => `<li><button class="trip-point__offer">${offer} +&euro;&nbsp;${point.offerPrice(offer)}</button></li>`).join(``)}
+    ${[...point.currentOffers].map((offer) => `<li><button class="trip-point__offer">${offer} +&euro;&nbsp;${point.offerPrice}</button></li>`).join(``)}
     </ul>
   </article>
 `;

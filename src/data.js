@@ -7,7 +7,6 @@ import {getTime, getTimeDifference} from "./utils/get-time.js";
 const MIN_PRICE = 5;
 const MAX_PRICE = 120;
 const MAX_OFFERS_COUNT = 2;
-const OFFER_PRICE = getRandomInt(10, 50);
 const MAX_DESCRIPTION_SENTENCES = 3;
 const HOUR_IN_MS = 1000 * 60 * 60;
 const MINUTE_IN_MS = 1000 * 60;
@@ -36,10 +35,10 @@ const DATA = {
     `Paris`,
   ]),
   OFFERS: new Map([
-    [`Add luggage`, OFFER_PRICE],
-    [`Switch to comfort class`, OFFER_PRICE],
-    [`Add meal`, OFFER_PRICE],
-    [`Choose seats`, OFFER_PRICE],
+    [`Add luggage`, getRandomInt(10, 50)],
+    [`Switch to comfort class`, getRandomInt(10, 50)],
+    [`Add meal`, getRandomInt(10, 50)],
+    [`Choose seats`, getRandomInt(10, 50)],
   ]),
   DESCRIPTIONS: new Set([
     `Lorem ipsum dolor sit amet, consectetur adipiscing elit.`,
@@ -55,18 +54,6 @@ const DATA = {
   ]),
 };
 
-const DATE_START = new Date(Date.now() + getRandomInt(0, HOUR) * HOUR_IN_MS + getRandomInt(0, MINUTE) * MINUTE_IN_MS);
-const DATE_END = new Date(Date.now() + getRandomInt(0, HOUR) * HOUR_IN_MS + getRandomInt(0, MINUTE) * MINUTE_IN_MS);
-
-const type = getRandomMapElements(DATA.TYPES, 1);
-const city = getRandomArrayElements(DATA.CITIES, 1);
-const price = getRandomInt(MIN_PRICE, MAX_PRICE);
-const currentOffers = getRandomMapElements(DATA.OFFERS, getRandomInt(0, MAX_OFFERS_COUNT));
-const description = getRandomArrayElements(DATA.DESCRIPTIONS, getRandomInt(1, MAX_DESCRIPTION_SENTENCES)).join(` `);
-const isFavourite = getRandomBoolean();
-const timeStart = getTime(DATE_START);
-const timeEnd = getTime(DATE_END);
-const timeDirrefence = getTimeDifference(DATE_START, DATE_END);
 
 /**
  * Генерирует данные для точки маршрута
@@ -74,13 +61,29 @@ const timeDirrefence = getTimeDifference(DATE_START, DATE_END);
  * @return {object} объект с данными для точки маршрута
  */
 export const generateTripPoint = () => {
+  const DATE_START = new Date(Date.now() + getRandomInt(0, HOUR) * HOUR_IN_MS + getRandomInt(0, MINUTE) * MINUTE_IN_MS);
+  const DATE_END = new Date(Date.now() + getRandomInt(0, HOUR) * HOUR_IN_MS + getRandomInt(0, MINUTE) * MINUTE_IN_MS);
+
+  const type = getRandomMapElements(DATA.TYPES, 1);
+  const city = getRandomArrayElements(DATA.CITIES, 1);
+  const price = getRandomInt(MIN_PRICE, MAX_PRICE);
+  const currentOffers = getRandomMapElements(DATA.OFFERS, getRandomInt(0, MAX_OFFERS_COUNT));
+  const description = getRandomArrayElements(DATA.DESCRIPTIONS, getRandomInt(1, MAX_DESCRIPTION_SENTENCES)).join(` `);
+  const isFavourite = getRandomBoolean();
+  const timeStart = getTime(DATE_START);
+  const timeEnd = getTime(DATE_END);
+  const timeDirrefence = getTimeDifference(DATE_START, DATE_END);
+  const offerPrice = (offer) => {
+    return DATA.OFFERS.get(`${offer}`);
+  };
+
   const tripPoint = {
     type,
     icon: DATA.TYPES.get(...type),
     city,
     price,
     currentOffers,
-    offerPrice: DATA.OFFERS.get(...currentOffers),
+    offerPrice,
     description,
     photo: `http://picsum.photos/300/150?r=${Math.random()}`,
     isFavourite,

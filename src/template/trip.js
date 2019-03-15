@@ -13,7 +13,7 @@ export const createTripTemplate = (point) => `<article class="trip-point">
     </p>
     <p class="trip-point__price">&euro;&nbsp;${point.price}</p>
     <ul class="trip-point__offers">
-    ${[...point.currentOffers].map((offer) => `<li><button class="trip-point__offer">${offer} +&euro;&nbsp;${point.offerPrice}</button></li>`).join(``)}
+    ${[...point.currentOffers].map((offer) => `<li><button class="trip-point__offer">${offer} +&euro;&nbsp;${point.offerPrice(offer)}</button></li>`).join(``)}
     </ul>
   </article>
 `;

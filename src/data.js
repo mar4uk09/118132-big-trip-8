@@ -67,15 +67,12 @@ export const generateTripPoint = () => {
   const type = getRandomMapElements(DATA.TYPES, 1);
   const city = getRandomArrayElements(DATA.CITIES, 1);
   const price = getRandomInt(MIN_PRICE, MAX_PRICE);
-  const currentOffers = getRandomMapElements(DATA.OFFERS, getRandomInt(0, MAX_OFFERS_COUNT));
+  const currentOffers = getRandomArrayElements(DATA.OFFERS, getRandomInt(0, MAX_OFFERS_COUNT));
   const description = getRandomArrayElements(DATA.DESCRIPTIONS, getRandomInt(1, MAX_DESCRIPTION_SENTENCES)).join(` `);
   const isFavourite = getRandomBoolean();
   const timeStart = getTime(DATE_START);
   const timeEnd = getTime(DATE_END);
   const timeDirrefence = getTimeDifference(DATE_START, DATE_END);
-  const offerPrice = (offer) => {
-    return DATA.OFFERS.get(`${offer}`);
-  };
 
   const tripPoint = {
     type,
@@ -83,7 +80,6 @@ export const generateTripPoint = () => {
     city,
     price,
     currentOffers,
-    offerPrice,
     description,
     photo: `http://picsum.photos/300/150?r=${Math.random()}`,
     isFavourite,

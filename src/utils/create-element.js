@@ -1,11 +1,11 @@
 /**
- * Создает элемент template
+ * Создает DOM-элемент из шаблона
  *
- * @param {string} inner - содержимое шаблона
- * @return {оbject} content шаблона
+ * @param {string} template - шаблон
+ * @return {оbject} DOM-элемент
  */
-export const createElement = (inner) => {
-  const template = document.createElement(`template`);
-  template.innerHTML = inner;
-  return template.content;
+export const createElement = (template) => {
+  const newElement = document.createElement(`div`);
+  newElement.innerHTML = template;
+  return newElement.firstChild;
 };

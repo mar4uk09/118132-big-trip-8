@@ -122,7 +122,7 @@ export class OpenedTripPoint extends Component {
     </article>`.trim();
   }
 
-  _bind() {
+  bind() {
     this._element.querySelector(`button[type="submit"]`)
       .addEventListener(`click`, this._onSubmitClick);
 
@@ -130,7 +130,7 @@ export class OpenedTripPoint extends Component {
       .addEventListener(`click`, this._onDeleteClick);
   }
 
-  _unbind() {
+  unbind() {
     this._element.querySelector(`button[type="submit"]`)
         .removeEventListener(`click`, this._onSubmitClick);
 

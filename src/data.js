@@ -1,8 +1,8 @@
-import {getRandomInt} from "./utils/random-int.js";
-import {getRandomArrayElements} from "./utils/random-array-elem.js";
-import {getRandomMapElements} from "./utils/random-map-elem.js";
-import {getRandomBoolean} from "./utils/random-boolean.js";
-import {getTime, getTimeDifference} from "./utils/get-time.js";
+import {getRandomInt} from "./utils/random-int";
+import {getRandomArrayElements} from "./utils/random-array-elem";
+import {getRandomMapElements} from "./utils/random-map-elem";
+import {getRandomBoolean} from "./utils/random-boolean";
+import {getTime, getTimeDifference} from "./utils/get-time";
 
 const MIN_PRICE = 5;
 const MAX_PRICE = 120;

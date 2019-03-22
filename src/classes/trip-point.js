@@ -1,29 +1,23 @@
-import {createElement} from "../utils/create-element.js";
+import {Component} from "./component";
 
-export class TripPoint {
+export class TripPoint extends Component {
   constructor(data) {
+    super();
     this._type = data.type;
     this._icon = data.icon;
     this._city = data.city;
     this._price = data.price;
     this._currentOffers = data.currentOffers;
-    this._description = data.description;
-    this._photo = data.photo;
-    this._isFavourite = data.isFavourite;
     this._timeStart = data.timeStart;
     this._timeEnd = data.timeEnd;
     this._timeDirrefence = data.timeDirrefence;
 
-    this._element = null;
     this._onClick = null;
+    this._onTripPointClick = this._onTripPointClick.bind(this);
   }
 
   _onTripPointClick() {
     return typeof this._onClick === `function` && this._onClick();
-  }
-
-  get element() {
-    return this._element;
   }
 
   set onClick(fn) {
@@ -46,21 +40,10 @@ export class TripPoint {
   }
 
   bind() {
-    this._element.addEventListener(`click`, this._onTripPointClick.bind(this));
-  }
-
-  render() {
-    this._element = createElement(this.template);
-    this.bind();
-    return this._element;
+    this._element.addEventListener(`click`, this._onTripPointClick);
   }
 
   unbind() {
-    this._element.removeEventListener(`click`, this._onTripPointClick.bind(this));
-  }
-
-  unrender() {
-    this.unbind();
-    this._element = null;
+    this._element.removeEventListener(`click`, this._onTripPointClick);
   }
 }

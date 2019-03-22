@@ -1,8 +1,8 @@
-import {createContent} from "./utils/create-content.js";
-import {createFilterTemplate} from "./template/filter.js";
-import {generateTripPoint} from "./data.js";
-import {TripPoint} from "./classes/trip-point.js";
-import {OpenedTripPoint} from "./classes/open-trip-point.js";
+import {createContent} from "./utils/create-content";
+import {createFilterTemplate} from "./template/filter";
+import {generateTripPoint} from "./data";
+import {TripPoint} from "./classes/trip-point";
+import {OpenedTripPoint} from "./classes/open-trip-point";
 
 const FILTER_NAMES = [`Everything`, `Future`, `Past`];
 
@@ -47,17 +47,14 @@ tripFilter.appendChild(fillFilterBlock(tripsBlock));
 tripPointComponent.onClick = () => {
   openedTripPointComponent.render();
   tripsBlock.replaceChild(openedTripPointComponent.element, tripPointComponent.element);
-  tripPointComponent.unrender();
 };
 
 openedTripPointComponent.onSubmit = () => {
   tripPointComponent.render();
   tripsBlock.replaceChild(tripPointComponent.element, openedTripPointComponent.element);
-  openedTripPointComponent.unrender();
 };
 
 openedTripPointComponent.onDelete = () => {
   tripPointComponent.render();
   tripsBlock.replaceChild(tripPointComponent.element, openedTripPointComponent.element);
-  openedTripPointComponent.unrender();
 };

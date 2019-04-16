@@ -2,7 +2,6 @@ import {getRandomInt} from "./utils/random-int";
 import {getRandomArrayElements} from "./utils/random-array-elem";
 import {getRandomMapElements} from "./utils/random-map-elem";
 import {getRandomBoolean} from "./utils/random-boolean";
-import {getTime, getTimeDifference} from "./utils/get-time";
 
 const MIN_PRICE = 5;
 const MAX_PRICE = 120;
@@ -61,8 +60,6 @@ const DATA = {
  * @return {object} объект с данными для точки маршрута
  */
 export const generateTripPoint = () => {
-  const DATE_START = new Date(Date.now() + getRandomInt(0, HOUR) * HOUR_IN_MS + getRandomInt(0, MINUTE) * MINUTE_IN_MS);
-  const DATE_END = new Date(Date.now() + getRandomInt(0, HOUR) * HOUR_IN_MS + getRandomInt(0, MINUTE) * MINUTE_IN_MS);
 
   const type = getRandomMapElements(DATA.TYPES, 1);
   const city = getRandomArrayElements(DATA.CITIES, 1);
@@ -70,9 +67,8 @@ export const generateTripPoint = () => {
   const currentOffers = getRandomArrayElements(DATA.OFFERS, getRandomInt(0, MAX_OFFERS_COUNT));
   const description = getRandomArrayElements(DATA.DESCRIPTIONS, getRandomInt(1, MAX_DESCRIPTION_SENTENCES)).join(` `);
   const isFavourite = getRandomBoolean();
-  const timeStart = getTime(DATE_START);
-  const timeEnd = getTime(DATE_END);
-  const timeDirrefence = getTimeDifference(DATE_START, DATE_END);
+  const timeStart = new Date(Date.now() + getRandomInt(0, HOUR) * HOUR_IN_MS + getRandomInt(0, MINUTE) * MINUTE_IN_MS);
+  const timeEnd = new Date(Date.now() + getRandomInt(0, HOUR) * HOUR_IN_MS + getRandomInt(0, MINUTE) * MINUTE_IN_MS);
 
   const tripPoint = {
     type,
@@ -85,7 +81,6 @@ export const generateTripPoint = () => {
     isFavourite,
     timeStart,
     timeEnd,
-    timeDirrefence,
   };
   return tripPoint;
 };

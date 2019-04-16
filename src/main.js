@@ -38,8 +38,9 @@ const fillFilterBlock = (block) => {
 const tripFilter = document.querySelector(`.trip-filter`);
 const tripsBlock = document.querySelector(`.trip-day__items`);
 
-const tripPointComponent = new TripPoint(generateTripPoint());
-const openedTripPointComponent = new OpenedTripPoint(generateTripPoint());
+const trip = generateTripPoint();
+const tripPointComponent = new TripPoint(trip);
+const openedTripPointComponent = new OpenedTripPoint(trip);
 
 tripsBlock.appendChild(tripPointComponent.render());
 tripFilter.appendChild(fillFilterBlock(tripsBlock));
@@ -49,7 +50,11 @@ tripPointComponent.onClick = () => {
   tripsBlock.replaceChild(openedTripPointComponent.element, tripPointComponent.element);
 };
 
-openedTripPointComponent.onSubmit = () => {
+openedTripPointComponent.onSubmit = (newObject) => {
+  trip.city = newObject.city;
+  trip.price = newObject.price;
+
+  tripPointComponent.update(trip);
   tripPointComponent.render();
   tripsBlock.replaceChild(tripPointComponent.element, openedTripPointComponent.element);
 };

@@ -13,7 +13,7 @@ export class OpenedTripPoint extends Component {
     this._isFavourite = data.isFavourite;
     this._timeStart = data.timeStart;
     this._timeEnd = data.timeEnd;
-    this._timeDirrefence = data.timeDirrefence;
+    this._timeDifference = data.timeDifference;
 
     this._onSubmit = null;
     this._onDelete = null;
@@ -21,12 +21,35 @@ export class OpenedTripPoint extends Component {
     this._onDeleteClick = this._onDeleteClick.bind(this);
   }
 
+  _processForm(formData) {
+    const entry = {
+      city: ``,
+      price: ``,
+    };
+
+
+    const tripMapper = OpenedTripPoint.createMapper(entry);
+
+    for (const pair of formData.entries()) {
+      const [property, value] = pair;
+      tripMapper[property] && tripMapper[property](value);
+    }
+
+    return entry;
+  }
+
   set onSubmit(fn) {
     this._onSubmit = fn;
   }
 
-  _onSubmitClick() {
-    return typeof this._onSubmit === `function` && this._onSubmit();
+  _onSubmitClick(evt) {
+    evt.preventDefault();
+
+    const formData = new FormData(this._element.querySelector(`.point form`));
+    const newData = this._processForm(formData);
+    typeof this._onSubmit === `function` && this._onSubmit(newData);
+
+    this.update(newData);
   }
 
   set onDelete(fn) {
@@ -136,5 +159,17 @@ export class OpenedTripPoint extends Component {
 
     this._element.querySelector(`button[type="reset"]`)
         .removeEventListener(`click`, this._onDeleteClick);
+  }
+
+  update(data) {
+    this._price = data.price;
+    this._city = data.city;
+  }
+
+  static createMapper(target) {
+    return {
+      destination: (value) => target.city = value,
+      price: (value) => target.price = value,
+    };
   }
 }
